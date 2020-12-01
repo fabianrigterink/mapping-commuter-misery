@@ -200,6 +200,14 @@ def save_outputs():
                     
                     # Read JSON file
                     if direction == 'arrival':
+                        # Get address
+                        assert 'origin_addresses' in data.keys()
+                        origin_addresses = data.get('origin_addresses')
+                        j = 0
+                        for origin_address in origin_addresses:
+                            df.loc[i+j, '{}-{}-address'.format(mode, direction)] = origin_address
+                            j += 1
+                        # Get distance and duration
                         assert 'rows' in data.keys()
                         rows = data.get('rows')
                         j = 0
@@ -229,6 +237,14 @@ def save_outputs():
                                     df.loc[i+j, '{}-{}-duration'.format(mode, direction)] = duration_value
                             j += 1
                     elif direction == 'departure':
+                        # Get address
+                        assert 'destination_addresses' in data.keys()
+                        destination_addresses = data.get('destination_addresses')
+                        j = 0
+                        for destination_address in destination_addresses:
+                            df.loc[i+j, '{}-{}-address'.format(mode, direction)] = destination_address
+                            j += 1
+                        # Get distance and duration
                         assert 'rows' in data.keys()
                         rows = data.get('rows')
                         assert len(rows) == 1
@@ -298,13 +314,7 @@ def save_outputs_no_water_nyc():
     df.to_csv('data/results-new-york-city-no-water.csv', index=False)
 
 
-def print_stats_nyc():
-    df = pd.read_csv('data/results-new-york-city-no-water.csv')
-    print(df.columns)
-
-
 if __name__ == '__main__':
     #save_inputs()
-    #save_outputs()
-    #save_outputs_no_water_nyc()
-    print_stats_nyc()
+    save_outputs()
+    save_outputs_no_water_nyc()
