@@ -12,7 +12,6 @@ class DistanceMatrixClient:
         assert 'DISTANCE_MATRIX_API_KEY' in config['DEFAULT'], 'Could not find key \'DISTANCE_MATRIX_API_KEY\' in config.ini. Exit.'
         API_KEY = config['DEFAULT']['DISTANCE_MATRIX_API_KEY']
         self.API_KEY = API_KEY
-        print(self.API_KEY)
 
     DISTANCE_MATRIX_BASE_URL = 'https://maps.googleapis.com/maps/api/distancematrix/json'
 
